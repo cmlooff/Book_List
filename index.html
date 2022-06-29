@@ -12,10 +12,34 @@
   <div class="container">
     <h1>Add Book</h1>
     <form id="book-form">
-      <label for="title">Title</label>
-      <!--*u-full-width is a Skeleton class to make the block across screen-->
-      <input type="text" id="title" class="u-full-width">
+      <div>
+        <label for="title">Title</label>
+        <!--*u-full-width is a Skeleton class to make the block across screen-->
+        <input type="text" id="title" class="u-full-width">
+      </div>
+      <div>
+        <label for="author">Author</label>
+        <input type="text" id="author" class="u-full-width">
+      </div>
+      <div>
+        <label for="isbn">ISBN</label>
+        <input type="text" id="isbn" class="u-full-width">
+      </div>
     </form>
+    <hr>
+    <table class="u-full-width">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>ISBN</th>
+          <th></th> <!--Delete link will go here-->
+        </tr>
+      </thead>
+      <tbody id="book-list"></tbody> <!--Dynamically insert with JS-->
+    </table>
   </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
