@@ -53,7 +53,25 @@ class UI {
     document.getElementById('author').value = '';
     document.getElementById('isbn').value = '';
   }
+}
 
+//// Local Storage Class
+class Store {
+  static getBooks() { // Fetching books from local storage
+
+  }
+
+  static displayBooks() {
+
+  }
+
+  static addBook() {
+
+  }
+
+  static removeBook() {
+
+  }
 }
 
 //// Event Listener for add book
