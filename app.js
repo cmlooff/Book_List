@@ -3,7 +3,7 @@
 function Book(title, author, isbn) {
   this.title = title;
   this.author = author;
-  this.isb = isbn;
+  this.isbn = isbn;
 }
 
 //// UI Constructor
@@ -12,7 +12,6 @@ function UI() { };
 // Add book to list
 UI.prototype.addBookToList = function (book) {
   const list = document.getElementById('book-list');
-
   // Create table row (tr) element
   const row = document.createElement('tr');
   // Insert columns
@@ -20,11 +19,17 @@ UI.prototype.addBookToList = function (book) {
   <td>${book.title}</td>
   <td>${book.author}</td>
   <td>${book.isbn}</td>
-  <td><a href="#" class="delete"</td>
+  <td><a href="#" class="delete">X<a></td>
   `;
   list.appendChild(row);
 }
 
+//// Clear Fields
+UI.prototype.clearFields = function () {
+  document.getElementById('title').value = '';
+  document.getElementById('author').value = '';
+  document.getElementById('isbn').value = '';
+}
 
 //// Event Listeners
 document.getElementById('book-form').addEventListener('submit', function (e) {
@@ -37,10 +42,19 @@ document.getElementById('book-form').addEventListener('submit', function (e) {
   const book = new Book(title, author, isbn);
 
   // Instantiate UI
-  const ui = new ui();
+  const ui = new UI();
 
-  // Add book to list
-  ui.addBookToList(book);
+  // Validate 
+  if (title === '' || author === '' || isbn === '') {
+    // Error alert
+    UI.showAlert('Please fill in all fields', 'error')
+  } else {
+    // Add book to list
+    ui.addBookToList(book);
+
+    // Clear fields
+    ui.clearFields();
+  }
 
   e.preventDefault();
-})
+});
