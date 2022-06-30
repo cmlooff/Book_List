@@ -38,7 +38,7 @@ class UI {
     // Timeout after three seconds
     setTimeout(function () {
       document.querySelector('.alert').remove();
-    }, 3000);
+    }, 2000);
   }
 
   deleteBook(target) {
@@ -69,17 +69,39 @@ class Store {
   }
 
   static displayBooks() {
+    const books = Store.getBooks();
 
+    books.forEach(book => {
+      const ui = new UI;
+
+      // add book to UI
+      ui.addBookToList(book);
+    });
   }
 
-  static addBook() {
+  static addBook(book) {
+    const books = Store.getBooks();
+    books.push(book)
 
+    // Stringify so that we can store in local storage
+    localStorage.setItem('books', JSON.stringify(books));
   }
 
-  static removeBook() {
+  static removeBook(isbn) {
+    const books = Store.getBooks();
 
+    books.forEach((book, index) => {
+      if (book.isbn === isbn) {
+        books.splice(index, 1);
+      }
+    });
+
+    localStorage.setItem('books', JSON.stringify(books));
   }
 }
+
+//// DOM Load Event
+document.addEventListener('DOMContentLoaded', Store.displayBooks);
 
 //// Event Listener for add book
 document.getElementById('book-form').addEventListener('submit', function (e) {
@@ -121,6 +143,10 @@ document.getElementById('book-list').addEventListener('click', function (e) {
 
   // Delete book
   ui.deleteBook(e.target);
+
+  // Remove from Local Storage
+  Store.removeBook(e.target.parentElement.previousElementSibling.textContent);
+  //* This should target the ISBN associated with the book
 
   // Show  message
   ui.showAlert('Book Removed!', 'success')
