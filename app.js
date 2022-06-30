@@ -46,7 +46,7 @@ UI.prototype.showAlert = function (message, className) {
 }
 
 //// Delete Book
-UI.prototype.deleteBook(target) {
+UI.prototype.deleteBook = function (target) {
   if (target.className === 'delete') {
     target.parentElement.parentElement.remove();
     // going from the a href -> td -> tr
@@ -95,9 +95,11 @@ document.getElementById('book-form').addEventListener('submit', function (e) {
 document.getElementById('book-list').addEventListener('click', function (e) {
   const ui = new UI(); //* Instantiate UI
 
+  // Delete book
   ui.deleteBook(e.target);
 
-  // Show 
+  // Show  message
+  ui.showAlert('Book Removed!', 'success')
 
   e.preventDefault();
 })
